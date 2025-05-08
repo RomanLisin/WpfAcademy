@@ -10,34 +10,45 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*"/>
+                <!-- Левое пустое пространство -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Первый ComboBox -->
+                <ColumnDefinition Width="80"/>
+                <!-- Отступ -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Второй ComboBox -->
+                <ColumnDefinition Width="*"/>
+                <!-- Правое пустое пространство -->
+            </Grid.ColumnDefinitions>
+            <!-- Direction ComboBox -->
+            <ComboBox Grid.Column="3"
+            ItemsSource="{Binding Directions}"
+            SelectedItem="{Binding SelectedDirection, Mode=TwoWay}"
+            DisplayMemberPath="DirectionName"
+            Width="300"
+            Margin="0 0 0 10"
+            />
 
-        <!-- Direction ComboBox -->
-        <ComboBox
-        ItemsSource="{Binding Directions}"
-        SelectedItem="{Binding SelectedDirection, Mode=TwoWay}"
-        DisplayMemberPath="DirectionName"
-        Width="300"
-        Margin="0 0 0 10"
-    />
-
-        <!-- Group ComboBox -->
-        <ComboBox
-        Grid.Row="1"
-        ItemsSource="{Binding Groups}"
-        SelectedItem="{Binding SelectedGroup, Mode=TwoWay}"
-        DisplayMemberPath="GroupName"
-        Width="300"
-        Margin="0 0 0 10"
-    />
-
+            <!-- Group ComboBox -->
+            <ComboBox
+            Grid.Column="1"
+            ItemsSource="{Binding Groups}"
+            SelectedItem="{Binding SelectedGroup, Mode=TwoWay}"
+            DisplayMemberPath="GroupName"
+            Width="300"
+            Margin="0 0 0 10"
+            />
+        </Grid>
         <!-- DataGrid -->
         <DataGrid
-        Grid.Row="2"
-        ItemsSource="{Binding Students}"
-        AutoGenerateColumns="True"
-    />
+            Grid.Row="1"
+            ItemsSource="{Binding Students}"
+            AutoGenerateColumns="True"
+            />
     </Grid>
 </Window>

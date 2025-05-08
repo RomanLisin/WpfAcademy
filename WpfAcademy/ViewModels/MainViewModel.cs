@@ -44,6 +44,8 @@ namespace WpfAcademy.ViewModels
 
 		public ObservableCollection<StudentInfo> Students { get; set; } = new ObservableCollection<StudentInfo>();
 		public ObservableCollection<DirectionItem> Directions { get; set; } = new ObservableCollection<DirectionItem>();
+		public ObservableCollection<GroupItem> Groups { get; set; } = new ObservableCollection<GroupItem>();
+
 
 		private DirectionItem _selectedDirection;
 		public DirectionItem SelectedDirection
@@ -59,8 +61,6 @@ namespace WpfAcademy.ViewModels
 				}
 			}
 		}
-
-		public ObservableCollection<GroupItem> Groups { get; set; } = new ObservableCollection<GroupItem>();
 
 		private GroupItem _selectedGroup;
 		public GroupItem SelectedGroup

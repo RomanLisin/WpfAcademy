@@ -12,6 +12,8 @@ namespace WpfAcademy.Models
 	{
 		public static DataSet LoadData()
 		{
+
+
 			// Здесь можно подключиться к БД или создать тестовые таблицы
 			DataSet ds = new DataSet();
 
