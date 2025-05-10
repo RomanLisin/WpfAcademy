@@ -82,8 +82,9 @@ namespace WpfAcademy.ViewModels
 
 		public MainViewModel()
 		{
+			DataProviders dataProvider = new DataProviders();
 			Students = new ObservableCollection<StudentInfo>();
-			_data = DataProviders.LoadData();
+			_data = dataProvider.LoadData();
 
 			LoadDirections();
 		}
