@@ -11,7 +11,7 @@
         <TabControl>
             <!-- Вкладка Students -->
             <TabItem Header="Students">
-                <Grid Margin="10">
+                <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -56,32 +56,118 @@
             />
                 </Grid>
             </TabItem>
+         
+                <!-- Вкладка Group -->
+                <TabItem Header="Groups">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="*"/>
+                                <!-- Левое пустое пространство -->
+                                <ColumnDefinition Width="300"/>
+                                <!-- Первый ComboBox -->
+                                <ColumnDefinition Width="80"/>
+                                <!-- Отступ -->
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- Второй ComboBox -->
+                                <ColumnDefinition Width="*"/>
+                                <!-- Правое пустое пространство -->
+                            </Grid.ColumnDefinitions>
+                            <!-- Direction ComboBox -->
+                            <ComboBox Grid.Column="3"
+     ItemsSource="{Binding Directions}"
+     SelectedItem="{Binding SelectedDirection, Mode=TwoWay}"
+     DisplayMemberPath="DirectionName"
+     Width="300"
+     Margin="0 0 0 10"
+     />
 
-            <!-- Вкладка Groups -->
-            <TabItem Header="Groups">
-                <DataGrid
-                    ItemsSource="{Binding Groups}"
-                    AutoGenerateColumns="False"
-                    CanUserAddRows="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding group_id}" Width="Auto"/>
-                        <DataGridTextColumn Header="Group Name" Binding="{Binding group_name}" Width="*"/>
-                        <DataGridTextColumn Header="Direction" Binding="{Binding direction}" Width="Auto"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-
+                    
+                        </Grid>
+                        <!-- DataGrid -->
+                        <DataGrid
+     Grid.Row="1"
+     ItemsSource="{Binding Groups}"
+     AutoGenerateColumns="True"
+     />
+                    </Grid>
+                </TabItem>
+            
             <!-- Вкладка Directions -->
             <TabItem Header="Directions">
-                <DataGrid
-                    ItemsSource="{Binding Directions}"
-                    AutoGenerateColumns="False"
-                    CanUserAddRows="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding direction_id}" Width="Auto"/>
-                        <DataGridTextColumn Header="Direction Name" Binding="{Binding direction_name}" Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+                            Height="20"
+                            Margin="0 0 0 10"
+                            >
+                    </Grid>
+                    <!-- DataGrid -->
+                    <DataGrid
+                        Grid.Row="1"
+                        ItemsSource="{Binding Directions}"
+                        AutoGenerateColumns="True"
+                     />
+                </Grid>
+            </TabItem>
+        
+            <!-- Вкладка Groups -->
+            <TabItem Header="Disciplines">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+             Height="20"
+             Margin="0 0 0 10"
+             >
+                    </Grid>
+                    <DataGrid
+                         Grid.Row="1"
+                         ItemsSource="{Binding Disciplines}"
+                         AutoGenerateColumns="False"
+                         CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding DisciplineId}" Width="Auto"/>
+                            <DataGridTextColumn Header="Discipline Name" Binding="{Binding DisciplineName}" Width="*"/>
+                            <DataGridTextColumn Header="Lessons" Binding="{Binding NumberOfLessons}" Width="Auto"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <!-- Вкладка Teachers -->
+            <TabItem Header="Teachers">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Height="20" Margin="0 0 0 10">
+                    </Grid>
+                    <DataGrid
+                        Grid.Row="1"
+                        ItemsSource="{Binding Teachers}"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding TeacherId}" Width="Auto"/>
+                            <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*"/>
+                            <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*"/>
+                            <DataGridTextColumn Header="Middle Name" Binding="{Binding MiddleName}" Width="*"/>
+                            <DataGridTextColumn Header="Birth Date" Binding="{Binding BirthDate, StringFormat=dd.MM.yyyy}" Width="Auto"/>
+                            <DataGridTextColumn Header="Rate" Binding="{Binding Rate}" Width="Auto"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

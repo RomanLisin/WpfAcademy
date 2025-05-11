@@ -38,13 +38,30 @@ namespace WpfAcademy.ViewModels
 			return GroupName;
 		}
 	}
+
+	public class Discipline
+	{
+		public int DisciplineId { get; set; }
+		public string DisciplineName { get; set; }
+		public byte NumberOfLessons { get; set; }
+	}
+
+	public class Teacher
+	{
+		public int TeacherId { get; set; }
+		public string LastName { get; set; }
+		public string FirstName { get; set; }
+		public string MiddleName { get; set; }
+		public DateTime BirthDate { get; set; }
+		public decimal Rate { get; set; }
+	}
 	public class MainViewModel : INotifyPropertyChanged
 	{
-
-
 		public ObservableCollection<StudentInfo> Students { get; set; } = new ObservableCollection<StudentInfo>();
 		public ObservableCollection<DirectionItem> Directions { get; set; } = new ObservableCollection<DirectionItem>();
 		public ObservableCollection<GroupItem> Groups { get; set; } = new ObservableCollection<GroupItem>();
+		public ObservableCollection<Discipline> Disciplines { get; set; } = new ObservableCollection<Discipline>();
+		public ObservableCollection<Teacher> Teachers { get; set; } = new ObservableCollection<Teacher>();
 
 
 		private DirectionItem _selectedDirection;
@@ -86,6 +103,7 @@ namespace WpfAcademy.ViewModels
 			_data = DataProviders.LoadData();
 
 			LoadDirections();
+			LoadDisciplinesAndTeachers();
 		}
 
 		private void LoadDirections()
@@ -132,6 +150,7 @@ namespace WpfAcademy.ViewModels
 
 			SelectedGroup = Groups[0];
 		}
+
 		private void LoadStudents()
 		{
 			if (SelectedDirection == null || SelectedGroup == null)
@@ -185,6 +204,37 @@ namespace WpfAcademy.ViewModels
 				Students.Add(studentInfo);
 			}
 
+		}
+		private void LoadDisciplinesAndTeachers()
+		{
+			Disciplines.Clear();
+			Teachers.Clear();
+
+			if (_data == null)
+				return;
+
+			foreach (DataRow row in _data.Tables["Disciplines"].Rows)
+			{
+				Disciplines.Add(new Discipline
+				{
+					DisciplineId = Convert.ToInt32(row["discipline_id"]),
+					DisciplineName = row["discipline_name"].ToString(),
+					NumberOfLessons = Convert.ToByte(row["number_of_lessons"])
+				});
+			}
+
+			foreach (DataRow row in _data.Tables["Teachers"].Rows)
+			{
+				Teachers.Add(new Teacher
+				{
+					TeacherId = Convert.ToInt32(row["teacher_id"]),
+					LastName = row["last_name"].ToString(),
+					FirstName = row["first_name"].ToString(),
+					MiddleName = row["middle_name"].ToString(),
+					BirthDate = Convert.ToDateTime(row["birth_date"]),
+					Rate = Convert.ToDecimal(row["rate"])
+				});
+			}
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
