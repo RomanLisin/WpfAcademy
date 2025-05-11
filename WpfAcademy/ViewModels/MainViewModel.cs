@@ -97,8 +97,10 @@ namespace WpfAcademy.ViewModels
 			{
 				Directions.Add(new DirectionItem
 				{
-					DirectionId = row.Field<int>("direction_id"),
-					DirectionName = row.Field<string>("direction_name")
+					DirectionId = Convert.ToInt32(row["direction_id"]),
+					DirectionName = row["direction_name"].ToString()
+					//DirectionId = row.Field<int>("direction_id"),
+					//DirectionName = row.Field<string>("direction_name")
 				});
 			}
 
@@ -113,14 +115,17 @@ namespace WpfAcademy.ViewModels
 
 			foreach (DataRow row in _data.Tables["Groups"].Rows)
 			{
-				int? directionId = row.Field<int?>("direction");
+				//int? directionId = row.Field<int?>("direction");
+				int directionId = Convert.ToInt32(row["direction"]);
 
 				if (SelectedDirection.DirectionId == 0 || directionId == SelectedDirection.DirectionId)
 				{
 					Groups.Add(new GroupItem
 					{
-						GroupId = row.Field<int>("group_id"),
-						GroupName = row.Field<string>("group_name")
+						GroupId = Convert.ToInt32(row["group_id"]),
+						GroupName = row["group_name"].ToString()
+						//GroupId = row.Field<int>("group_id"),
+						//GroupName = row.Field<string>("group_name")
 					});
 				}
 			}
@@ -136,15 +141,18 @@ namespace WpfAcademy.ViewModels
 
 			foreach (DataRow student in _data.Tables["Students"].Rows)
 			{
-				int? studentGroupId = student.Field<int?>("group");
+				//int? studentGroupId = student.Field<int?>("group");
+				int studentGroupId = Convert.ToInt32(student["group"]);
 
 				DataRow groupRow = _data.Tables["Groups"].AsEnumerable()
-					.FirstOrDefault(g => g.Field<int>("group_id") == studentGroupId);
+					//.FirstOrDefault(g => g.Field<int>("group_id") == studentGroupId);
+					.FirstOrDefault(g => Convert.ToInt32(g["group_id"]) == studentGroupId);
 
 				if (groupRow == null)
 					continue;
 
-				int? groupDirectionId = groupRow.Field<int?>("direction");
+				//int? groupDirectionId = groupRow.Field<int?>("direction");
+				int groupDirectionId = Convert.ToInt32(groupRow["direction"]);
 
 				// Пропускаем, если не совпадает выбранное направление
 				if (SelectedDirection.DirectionId != 0 && groupDirectionId != SelectedDirection.DirectionId)
@@ -155,16 +163,23 @@ namespace WpfAcademy.ViewModels
 					continue;
 
 				DataRow directionRow = _data.Tables["Directions"].AsEnumerable()
-					.FirstOrDefault(d => d.Field<int>("direction_id") == groupDirectionId);
+					//.FirstOrDefault(d => d.Field<int>("direction_id") == groupDirectionId);
+					.FirstOrDefault(d => Convert.ToInt32(d["direction_id"]) == groupDirectionId);
 
 				StudentInfo studentInfo = new StudentInfo
 				{
-					StudId = student.Field<int>("stud_id"),
-					LastName = student.Field<string>("last_name"),
-					FirstName = student.Field<string>("first_name"),
+					StudId = Convert.ToInt32(student["stud_id"]),
+					LastName = student["last_name"].ToString(),
+					FirstName = student["first_name"].ToString(),
 					GroupId = studentGroupId,
-					GroupName = groupRow?.Field<string>("group_name") ?? "",
-					DirectionName = directionRow?.Field<string>("direction_name") ?? ""
+					GroupName = groupRow["group_name"].ToString(),
+					DirectionName = directionRow["direction_name"].ToString()
+					//StudId = student.Field<int>("stud_id"),
+					//LastName = student.Field<string>("last_name"),
+					//FirstName = student.Field<string>("first_name"),
+					//GroupId = studentGroupId,
+					//GroupName = groupRow?.Field<string>("group_name") ?? "",
+					//DirectionName = directionRow?.Field<string>("direction_name") ?? ""
 				};
 
 				Students.Add(studentInfo);
